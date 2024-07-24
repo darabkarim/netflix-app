@@ -1,8 +1,10 @@
+import Body from './components/Body'
+import './App.css'
 const App = () => {
   return (
-    <h1 className="text-3xl font-bold text-red-800">
-      Hello world!
-    </h1>
+   <div>
+    <Body/>
+   </div>
   )
 }
 export default App
