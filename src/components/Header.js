@@ -39,7 +39,6 @@ const Header = () => {
       }
     });
 
-    // Uniubscribe when component unmounts
     return () => unsubscribe();
   }, []);
 
@@ -54,12 +53,15 @@ const Header = () => {
       </div>
       {user && (
         <div className="relative">
+          <div className="flex justify-between items-center px-4 mx-4 gap-4">
           <img
             src={user?.photoURL}
             alt="avatar"
-            className="cursor-pointer w-16"
+            className="cursor-pointer w-12"
             onClick={toggleDropdown}
           />
+          <h6 className="font-bold text-lg text-white">{user.displayName}</h6>
+          </div>
           {dropdownVisible && (
             <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50">
               <button

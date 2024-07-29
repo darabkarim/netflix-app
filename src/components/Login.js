@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
-import { BG_IMG_URL } from "../utils/constant";
+import { USER_AVATAR, BG_IMG_URL } from "../utils/constant";
 import { checkValidData } from "../utils/validate";
 import { auth } from "../utils/firebase";
 import {
@@ -40,7 +40,7 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: nameValue,
-            photoURL: "https://avatars.githubusercontent.com/u/67411415?v=4",
+            photoURL: USER_AVATAR,
           })
             .then(() => {
               const { uid, email, displayName, photoURL } = auth.currentUser;
