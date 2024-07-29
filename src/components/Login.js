@@ -8,8 +8,12 @@ import {
   updateProfile,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
+  
+  const dispatch = useDispatch();
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMsg, setErrorMsg] = useState(null);
   const name = useRef(null);
@@ -34,24 +38,41 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log(user)
-          return updateProfile(user, {
+          updateProfile(user, {
             displayName: nameValue,
-          });
+            photoURL: "https://avatars.githubusercontent.com/u/67411415?v=4",
+          })
+            .then(() => {
+              const { uid, email, displayName, photoURL } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
+              );
+             
+            })
+            .catch((error) => {
+              setErrorMsg(error.message)
+            });
         })
-        
+
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           setErrorMsg(errorCode + "-" + errorMessage);
         });
     } else {
-      signInWithEmailAndPassword(auth,email.current.value, password.current.value)
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
         .then((userCredential) => {
-          // Signed in
           const user = userCredential.user;
-          console.log(user);
-          // ...
+          
         })
         .catch((error) => {
           const errorCode = error.code;
