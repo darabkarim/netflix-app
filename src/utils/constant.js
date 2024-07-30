@@ -9,6 +9,7 @@ export const USER_AVATAR =
 
 export const NOW_PLAYING_MOVIES_URL = "https://api.themoviedb.org/3/movie/now_playing?page=1"
 
+
 export const options = {
   method: "GET",
   headers: {
